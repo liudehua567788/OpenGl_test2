@@ -1,4 +1,4 @@
-#include <glad/glad.h>
+ï»¿#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -177,7 +177,7 @@ int main()
 
 	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // lines only
 
-	shader.use(); // don¡¯t forget to activate the shader first!
+	shader.use(); // donâ€™t forget to activate the shader first!
 	shader.setInt("texture1", 0); // or with shader class
 	shader.setInt("texture2", 1); // or with shader class
 
@@ -193,17 +193,23 @@ int main()
 	glEnable(GL_DEPTH_TEST); // enable depth test
 	
 	float it = 0.0f;
-	float a = 0.02f;
+	float a = 1.05f;
 
 	while (!glfwWindowShouldClose(window))
 	{
 		// input
 		processInput(window);
 
-		// itensity transform
-		if (it > 1 || it < 0)
-			a = -a;
-		it += a;
+		// itensity transform using key
+		if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && it >0.0)
+			it = it/a;
+
+		if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && it < 1.0) {
+			if (it == 0)
+				it = 0.004;
+			else
+				it = it*a;
+		}
 
 		// set clear color and then clear
 		glClearColor(it, it, it, 1.0f);
