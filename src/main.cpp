@@ -191,14 +191,22 @@ int main()
 	shader.setMat4("projection", projection);
 
 	glEnable(GL_DEPTH_TEST); // enable depth test
+	
+	float it = 0.0f;
+	float a = 0.02f;
 
 	while (!glfwWindowShouldClose(window))
 	{
 		// input
 		processInput(window);
 
+		// itensity transform
+		if (it > 1 || it < 0)
+			a = -a;
+		it += a;
+
 		// set clear color and then clear
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(it, it, it, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// use shader program
